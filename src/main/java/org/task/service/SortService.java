@@ -6,5 +6,5 @@ import org.task.exception.IntArrayException;
 public interface SortService {
   IntArray quickSort(IntArray array) throws IntArrayException;
 
-  IntArray mergeSort(IntArray array);
+  IntArray bubbleSort(IntArray array) throws IntArrayException;
 }

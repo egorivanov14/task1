@@ -1,10 +1,11 @@
 package org.task.reader;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 public interface CustomFileReader {
-  List<String> read() throws IOException;
+  List<String> readFromDefault() throws IOException;
 
-  List<String> read(String directory, String name) throws IOException;
+  List<String> readWithPath(Path path, String name) throws IOException;
 }

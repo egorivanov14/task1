@@ -11,30 +11,29 @@ import java.util.List;
 
 public class CustomFileReaderImpl implements CustomFileReader {
   private static final Logger logger = LoggerFactory.getLogger(CustomFileReaderImpl.class);
-  private final Path DEFAULT_PATH = Path.of("src", "input.txt");
+  private final Path DEFAULT_PATH = Path.of("src/data", "input.txt");
 
   @Override
-  public List<String> read() throws IOException {
+  public List<String> readFromDefault() throws IOException {
     List<String> content;
     try {
       logger.info("Reading from default file 'input.txt'");
       content = Files.readAllLines(DEFAULT_PATH);
     } catch (IOException e) {
-      logger.error("Failed to read default file {}.", DEFAULT_PATH);
+      logger.error("Failed to readWithPath default file {}.", DEFAULT_PATH);
       throw new IOException(e.getMessage());
     }
     return content;
   }
 
   @Override
-  public List<String> read(String directory, String name) throws IOException {
+  public List<String> readWithPath(Path path, String name) throws IOException {
     List<String> content;
-    Path path = Path.of(directory, name);
     try {
       logger.info("Reading file {}.", path);
       content = Files.readAllLines(path);
     } catch (IOException e) {
-      logger.error("Failed to read file {}.", path);
+      logger.error("Failed to readWithPath file {}.", path);
       throw new IOException(e.getMessage());
     }
     return content;

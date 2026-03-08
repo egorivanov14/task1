@@ -11,9 +11,9 @@ import java.nio.file.StandardOpenOption;
 
 public class CustomFileWriterImpl implements CustomFileWriter {
   private static final Logger logger = LoggerFactory.getLogger(CustomFileWriterImpl.class);
-  private final Path DEFAULT_PATH = Path.of("src", "output.txt");
-  private final Path LOG_PATH = Path.of("src", "log.txt");
-  private final Path WRONG_DATA_PATH = Path.of("src", "wrongData.txt");
+  private final Path DEFAULT_PATH = Path.of("src/data", "output.txt");
+  private final Path LOG_PATH = Path.of("src/data", "log.txt");
+  private final Path WRONG_DATA_PATH = Path.of("src/data", "wrongData.txt");
 
   @Override
   public void writeToDefault(String line) throws IOException {
