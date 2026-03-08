@@ -18,7 +18,7 @@ public class CustomIntArrayParserImpl implements CustomIntArrayParser {
     }
 
     String cleanLine = lineOfInts.replaceAll(TRASH_SYMBOLS, " ");
-    cleanLine = cleanLine.replaceAll(EMPTY_SPACE_SYMBOL, "");
+    cleanLine = cleanLine.replaceAll(EMPTY_SPACE_SYMBOL, " ");
     String[] strNumbers = cleanLine.split(" ");
     int[] intArray = new int[strNumbers.length];
 
