@@ -12,7 +12,7 @@ public class SortServiceImpl implements SortService {
   @Override
   public IntArray quickSort(IntArray array) throws IntArrayException {
     logger.info("Start of quick sort.");
-    if(array == null || array.getLength() < 2){
+    if (array == null || array.getLength() < 2) {
       logger.info("End of quick sort. You do not need sorting. Array is too short or null.");
       return array;
     }
@@ -25,7 +25,7 @@ public class SortServiceImpl implements SortService {
   }
 
   private IntArray quickSortImpl(IntArray array, int low, int high) throws IntArrayException {
-    if(low < high){
+    if (low < high) {
       int i = partition(array, low, high);
       quickSortImpl(array, low, i - 1);
       quickSortImpl(array, i + 1, high);
@@ -38,11 +38,11 @@ public class SortServiceImpl implements SortService {
     int pivot = array.getElement(high);
     int i = low - 1;
 
-    for(int j = low; j < high; j++){
-      if(array.getElement(j) < pivot){
+    for (int j = low; j < high; j++) {
+      if (array.getElement(j) < pivot) {
         i++;
         swap(array, j, i);
-      } 
+      }
     }
     swap(array, high, i + 1);
     return i + 1;

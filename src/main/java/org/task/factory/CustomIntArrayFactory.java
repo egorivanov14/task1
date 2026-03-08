@@ -6,7 +6,7 @@ import org.task.exception.IntArrayException;
 public interface CustomIntArrayFactory {
   IntArray createEmptyIntArray(int size);
 
-  IntArray createIntArray(int[] array);
+  IntArray createIntArray(int[] array) throws IntArrayException;
 
   IntArray createRandomIntArray(int size) throws IntArrayException;
 }

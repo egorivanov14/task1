@@ -9,4 +9,6 @@ public interface CustomFileWriter {
   void writeWithPath(Path path, String line) throws IOException;
 
   void writeLog(String log) throws IOException;
+
+  void writeWrongValues(String value) throws IOException;
 }

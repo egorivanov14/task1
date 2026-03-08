@@ -11,16 +11,16 @@ public class MaxMinServiceImpl implements MaxMinService {
 
   @Override
   public int min(IntArray array) throws IntArrayException {
-    if(array == null){
+    if (array == null) {
       logger.error("Failed to find min element. Array is null");
       throw new IntArrayException("Array is null.");
     }
     logger.info("Trying to find min element.");
     int min = array.getElement(0);
     int element;
-    for(int i = 1; i < array.getLength(); i++){
+    for (int i = 1; i < array.getLength(); i++) {
       element = array.getElement(i);
-      if(element < min){
+      if (element < min) {
         min = element;
       }
     }
@@ -30,7 +30,7 @@ public class MaxMinServiceImpl implements MaxMinService {
 
   @Override
   public int max(IntArray array) throws IntArrayException {
-    if(array == null){
+    if (array == null) {
       logger.error("Failed to find max element. Array is null.");
       throw new IntArrayException("Array is null.");
     }
@@ -38,9 +38,9 @@ public class MaxMinServiceImpl implements MaxMinService {
     logger.info("Trying to find max element.");
     int max = array.getElement(0);
     int element;
-    for(int i = 1; i < array.getLength(); i++){
+    for (int i = 1; i < array.getLength(); i++) {
       element = array.getElement(i);
-      if(element > max){
+      if (element > max) {
         max = element;
       }
     }

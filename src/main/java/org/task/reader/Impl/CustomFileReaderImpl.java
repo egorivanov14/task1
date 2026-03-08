@@ -3,6 +3,7 @@ package org.task.reader.Impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.task.reader.CustomFileReader;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,11 +16,10 @@ public class CustomFileReaderImpl implements CustomFileReader {
   @Override
   public List<String> read() throws IOException {
     List<String> content;
-    try{
+    try {
       logger.info("Reading from default file 'input.txt'");
       content = Files.readAllLines(DEFAULT_PATH);
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       logger.error("Failed to read default file {}.", DEFAULT_PATH);
       throw new IOException(e.getMessage());
     }
@@ -33,8 +33,7 @@ public class CustomFileReaderImpl implements CustomFileReader {
     try {
       logger.info("Reading file {}.", path);
       content = Files.readAllLines(path);
-    }
-    catch (IOException e){
+    } catch (IOException e) {
       logger.error("Failed to read file {}.", path);
       throw new IOException(e.getMessage());
     }

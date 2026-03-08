@@ -3,6 +3,7 @@ package org.task.writer.Impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.task.writer.CustomFileWriter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,14 +13,14 @@ public class CustomFileWriterImpl implements CustomFileWriter {
   private static final Logger logger = LoggerFactory.getLogger(CustomFileWriterImpl.class);
   private final Path DEFAULT_PATH = Path.of("src", "output.txt");
   private final Path LOG_PATH = Path.of("src", "log.txt");
+  private final Path WRONG_DATA_PATH = Path.of("src", "wrongData.txt");
 
   @Override
   public void writeToDefault(String line) throws IOException {
     try {
       logger.info("Writing data in default file. ");
-      Files.writeString(DEFAULT_PATH, line);
-    }
-    catch (IOException e){
+      Files.writeString(DEFAULT_PATH, line, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
+    } catch (IOException e) {
       logger.error("Failed to write data to default file. ");
       throw new IOException(e.getMessage());
     }
@@ -27,7 +28,7 @@ public class CustomFileWriterImpl implements CustomFileWriter {
 
   @Override
   public void writeWithPath(Path path, String line) throws IOException {
-    try{
+    try {
       logger.info("Writing line to path: {}. ", path);
       Files.writeString(path, line);
     } catch (IOException e) {
@@ -41,8 +42,16 @@ public class CustomFileWriterImpl implements CustomFileWriter {
     try {
       logger.info("Writing log to path: {}. ", LOG_PATH);
       Files.writeString(LOG_PATH, log, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
+    } catch (IOException e) {
+      throw new IOException(e.getMessage());
     }
-    catch (IOException e){
+  }
+
+  @Override
+  public void writeWrongValues(String value) throws IOException {
+    try {
+      Files.writeString(WRONG_DATA_PATH, value, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
+    } catch (IOException e) {
       throw new IOException(e.getMessage());
     }
   }

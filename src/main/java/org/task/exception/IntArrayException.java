@@ -1,21 +1,20 @@
 package org.task.exception;
 
-public class IntArrayException extends Exception{
+public class IntArrayException extends Exception {
 
-  public IntArrayException(){
+  public IntArrayException() {
     super();
   }
 
-  public IntArrayException(String message){
+  public IntArrayException(String message) {
     super(message);
   }
 
-  public IntArrayException(String message, Throwable cause){
+  public IntArrayException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public IntArrayException(Throwable cause){
+  public IntArrayException(Throwable cause) {
     super(cause);
   }
-
 }
