@@ -23,6 +23,7 @@ public class CustomIntArrayParserImpl implements CustomIntArrayParser {
       return new int[0];
     }
 
+
     String[] strNumbers = line.split(SPACE_SYMBOL);
     int[] intArray = new int[strNumbers.length];
 
