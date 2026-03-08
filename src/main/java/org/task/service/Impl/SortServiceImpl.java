@@ -5,18 +5,24 @@ import org.slf4j.LoggerFactory;
 import org.task.entity.IntArray;
 import org.task.exception.IntArrayException;
 import org.task.service.SortService;
+import org.task.validator.Impl.CustomValidatorImpl;
 
 public class SortServiceImpl implements SortService {
   private static final Logger logger = LoggerFactory.getLogger(SortServiceImpl.class);
+  private static final CustomValidatorImpl validator = new CustomValidatorImpl();
 
   @Override
   public IntArray quickSort(IntArray array) throws IntArrayException {
     logger.info("Start of quick sort.");
-    if (array == null || array.getLength() < 2) {
-      logger.info("End of quick sort. You do not need sorting. Array is too short or null.");
+    if (validator.isArrayValid(array.getIntArray())) {
+      return quickSortImpl(array, 0, array.getLength() - 1);
+    } else if (array.getLength() < 2) {
+      logger.info("End of quick sort. You do not need sorting. Array is too short.");
       return array;
+    } else {
+      logger.error("Failed to sort array. Array is null.");
+      throw new IntArrayException("Array is null.");
     }
-    return quickSortImpl(array, 0, array.getLength() - 1);
   }
 
   @Override
@@ -31,6 +37,7 @@ public class SortServiceImpl implements SortService {
       quickSortImpl(array, i + 1, high);
     }
 
+    logger.info("Array is sorted by quick sort.");
     return array;
   }
 
