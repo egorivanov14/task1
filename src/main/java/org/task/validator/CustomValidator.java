@@ -8,4 +8,6 @@ public interface CustomValidator {
   Pattern getCompilePattern();
 
   boolean isArrayValid(int[] array);
+
+  boolean isLineOfIntsValid(String lineOfInts);
 }

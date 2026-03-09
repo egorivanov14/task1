@@ -14,9 +14,15 @@ public class CustomIntArrayFactoryImpl implements CustomIntArrayFactory {
   private static final CustomValidatorImpl validator = new CustomValidatorImpl();
 
   @Override
-  public IntArray createEmptyIntArray(int size) {
-    logger.info("Creating empty IntArray.");
+  public IntArray createIntArrayBySize(int size) {
+    logger.info("Creating IntArray by size.");
     return new IntArray(size);
+  }
+
+  @Override
+  public IntArray createEmptyIntArray() {
+    logger.info("Creating empty IntArray.");
+    return new IntArray();
   }
 
   @Override

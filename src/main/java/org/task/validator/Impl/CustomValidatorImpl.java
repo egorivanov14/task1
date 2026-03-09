@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class CustomValidatorImpl implements CustomValidator {
   private static final Logger logger = LoggerFactory.getLogger(CustomValidatorImpl.class);
   private static final String REGEX = "^[+-]?[1-9]\\d*$";
+  private static final String SYMBOLS = "[\\p{L}\\p{M}]+";
 
   @Override
   public boolean isElementValid(String element, Pattern pattern) {
@@ -23,5 +24,10 @@ public class CustomValidatorImpl implements CustomValidator {
   @Override
   public boolean isArrayValid(int[] array) {
     return array != null;
+  }
+
+  @Override
+  public boolean isLineOfIntsValid(String lineOfInts) {
+    return !lineOfInts.contains(SYMBOLS);
   }
 }

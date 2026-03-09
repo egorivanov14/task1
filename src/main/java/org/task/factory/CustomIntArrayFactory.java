@@ -4,7 +4,9 @@ import org.task.entity.IntArray;
 import org.task.exception.IntArrayException;
 
 public interface CustomIntArrayFactory {
-  IntArray createEmptyIntArray(int size);
+  IntArray createIntArrayBySize(int size);
+
+  IntArray createEmptyIntArray();
 
   IntArray createIntArray(int[] array) throws IntArrayException;
 
