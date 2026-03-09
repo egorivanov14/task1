@@ -12,7 +12,6 @@ import java.nio.file.StandardOpenOption;
 public class CustomFileWriterImpl implements CustomFileWriter {
   private static final Logger logger = LoggerFactory.getLogger(CustomFileWriterImpl.class);
   private final Path DEFAULT_PATH = Path.of("src/data", "output.txt");
-  private final Path LOG_PATH = Path.of("src/data", "log.txt");
   private final Path WRONG_DATA_PATH = Path.of("src/data", "wrongData.txt");
 
   @Override
@@ -33,16 +32,6 @@ public class CustomFileWriterImpl implements CustomFileWriter {
       Files.writeString(path, line);
     } catch (IOException e) {
       logger.error("Failed to write data to this path: {}. ", path);
-      throw new IOException(e.getMessage());
-    }
-  }
-
-  @Override
-  public void writeLog(String log) throws IOException {
-    try {
-      logger.info("Writing log to path: {}. ", LOG_PATH);
-      Files.writeString(LOG_PATH, log, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
-    } catch (IOException e) {
       throw new IOException(e.getMessage());
     }
   }
