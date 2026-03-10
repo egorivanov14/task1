@@ -43,11 +43,13 @@ public class SortServiceImpl implements SortService {
           }
         }
         if (permutations == 0) {
+          logger.info("Successful sorting by bubble sort.");
           return array;
         } else {
           length--;
         }
       }
+      logger.info("Successful sorting by bubble sort.");
       return array;
     } else {
       logger.error("Failed to use bubble sort. Array is null.");
@@ -62,7 +64,6 @@ public class SortServiceImpl implements SortService {
       quickSortImpl(array, i + 1, high);
     }
 
-    logger.info("Array is sorted by quick sort.");
     return array;
   }
 
