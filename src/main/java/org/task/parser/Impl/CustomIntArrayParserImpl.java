@@ -20,7 +20,7 @@ public class CustomIntArrayParserImpl implements CustomIntArrayParser {
   public int[] parseToIntArray(String lineOfInts) throws IOException {
     logger.info("Parsing line to array of integer numbers");
     if (lineOfInts == null || lineOfInts.isEmpty()) {
-      logger.error("Failed to parse string. Input string is null or empty.");
+      logger.error("Failed to parse line. Input line is null or empty.");
       return new int[0];
     }
 
@@ -37,10 +37,10 @@ public class CustomIntArrayParserImpl implements CustomIntArrayParser {
           fileWriter.writeWrongValues(strNumbers[i] + SPACE_SYMBOL);
         }
       }
-      logger.info("Successful parsing.");
+      logger.info("Successful parsing to IntArray.");
       return intArray;
     } else {
-      logger.warn("Line from file is not valid. Return empty int array.");
+      logger.warn("Line from file is not valid. Return empty IntArray.");
       return new int[0];
     }
   }

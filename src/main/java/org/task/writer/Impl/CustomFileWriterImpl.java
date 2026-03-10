@@ -17,10 +17,10 @@ public class CustomFileWriterImpl implements CustomFileWriter {
   @Override
   public void writeToDefault(String line) throws IOException {
     try {
-      logger.info("Writing data in default file. ");
+      logger.info("Writing data to default file 'output.txt'. ");
       Files.writeString(DEFAULT_PATH, line, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
     } catch (IOException e) {
-      logger.error("Failed to write data to default file. ");
+      logger.error("Failed to write data to default file 'output.txt'. ");
       throw new IOException(e.getMessage());
     }
   }
@@ -39,8 +39,10 @@ public class CustomFileWriterImpl implements CustomFileWriter {
   @Override
   public void writeWrongValues(String value) throws IOException {
     try {
+      logger.info("Writing an invalid value to the file 'wrongData.txt'.");
       Files.writeString(WRONG_DATA_PATH, value, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
     } catch (IOException e) {
+      logger.error("Failed to write an invalid value to the file 'wrongData.txt'.");
       throw new IOException(e.getMessage());
     }
   }

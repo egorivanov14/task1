@@ -20,7 +20,7 @@ public class CustomFileReaderImpl implements CustomFileReader {
       logger.info("Reading from default file 'input.txt'");
       content = Files.readAllLines(DEFAULT_PATH);
     } catch (IOException e) {
-      logger.error("Failed to readWithPath default file {}.", DEFAULT_PATH);
+      logger.error("Failed to read default file {}.", DEFAULT_PATH);
       throw new IOException(e.getMessage());
     }
     return content;
@@ -33,7 +33,7 @@ public class CustomFileReaderImpl implements CustomFileReader {
       logger.info("Reading file {}.", path);
       content = Files.readAllLines(path);
     } catch (IOException e) {
-      logger.error("Failed to readWithPath file {}.", path);
+      logger.error("Failed to read file {}.", path);
       throw new IOException(e.getMessage());
     }
     return content;

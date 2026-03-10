@@ -32,8 +32,8 @@ public class IntArray {
 
   public int getElement(int index) throws IntArrayException {
     if (index >= this.intArray.length) {
-      logger.error("Index {} is out of intArray", index);
-      throw new IntArrayException("Index is out of array.");
+      logger.error("Index {} in getElement() is out of intArray", index);
+      throw new IntArrayException("Index in getElement() is out of array.");
     } else {
       return this.intArray[index];
     }
@@ -41,7 +41,7 @@ public class IntArray {
 
   public void setElement(int index, int value) throws IntArrayException {
     if (index >= getLength() && index < 0) {
-      logger.error("Invalid index : {}. There are no such indexes in array.", index);
+      logger.error("Invalid index {} in setElement(). Index is out of array.", index);
       throw new IntArrayException("Invalid index");
     } else {
       this.intArray[index] = value;

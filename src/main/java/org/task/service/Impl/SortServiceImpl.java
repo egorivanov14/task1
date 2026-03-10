@@ -15,7 +15,9 @@ public class SortServiceImpl implements SortService {
   public IntArray quickSort(IntArray array) throws IntArrayException {
     logger.info("Start of quick sort.");
     if (validator.isArrayValid(array.getIntArray())) {
-      return quickSortImpl(array, 0, array.getLength() - 1);
+      IntArray sortedArray = quickSortImpl(array, 0, array.getLength() - 1);
+      logger.info("IntArray is sorted by quick sort.");
+      return sortedArray;
     } else if (array.getLength() < 2) {
       logger.info("End of quick sort. You do not need sorting. Array is too short.");
       return array;
