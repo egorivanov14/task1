@@ -39,10 +39,10 @@ public class CustomFileWriterImpl implements CustomFileWriter {
   @Override
   public void writeWrongValues(String value) throws IOException {
     try {
-      logger.info("Writing an invalid value to the file 'wrongData.txt'.");
+      logger.info("Writing an invalid value '{}' to the file 'wrongData.txt'.", value);
       Files.writeString(WRONG_DATA_PATH, value, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
     } catch (IOException e) {
-      logger.error("Failed to write an invalid value to the file 'wrongData.txt'.");
+      logger.error("Failed to write an invalid value '{}' to the file 'wrongData.txt'.", value);
       throw new IOException(e.getMessage());
     }
   }
