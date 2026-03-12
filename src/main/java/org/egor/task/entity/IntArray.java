@@ -34,11 +34,6 @@ public class IntArray {
     this.intArray = new int[0];
   }
 
-  public IntArray(String name) {
-    this.id = UUID.randomUUID().toString();
-    this.intArray = new int[0];
-  }
-
   public String getId() {
     return id;
   }
