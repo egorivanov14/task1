@@ -6,14 +6,14 @@ public class IntArrayStats {
   private double average;
   private int sum;
 
-  IntArrayStats(int min, int max, double average, int sum){
+  IntArrayStats(int min, int max, double average, int sum) {
     this.min = min;
     this.max = max;
     this.average = average;
     this.sum = sum;
   }
 
-  IntArrayStats(){
+  IntArrayStats() {
   }
 
   public int getMin() {

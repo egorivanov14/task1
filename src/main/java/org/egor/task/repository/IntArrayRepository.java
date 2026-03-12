@@ -8,7 +8,10 @@ import java.util.Optional;
 
 public interface IntArrayRepository {
   void save(IntArray intArray) throws IntArrayException;
+
   void delete(String id);
+
   Optional<IntArray> findById(String id);
+
   List<IntArray> findAll();
 }
