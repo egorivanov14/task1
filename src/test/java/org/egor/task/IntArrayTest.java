@@ -1,16 +1,16 @@
 package org.egor.task;
 
-import org.junit.jupiter.api.Test;
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
 import org.egor.task.parser.CustomIntArrayParser;
 import org.egor.task.parser.impl.CustomIntArrayParserImpl;
-import org.egor.task.service.impl.MathOperationsServiceImpl;
-import org.egor.task.service.impl.SortServiceImpl;
 import org.egor.task.service.MathOperationsService;
 import org.egor.task.service.SortService;
+import org.egor.task.service.impl.MathOperationsServiceImpl;
+import org.egor.task.service.impl.SortServiceImpl;
 import org.egor.task.validator.CustomValidator;
 import org.egor.task.validator.impl.CustomValidatorImpl;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class IntArrayTest {
   void shouldCountSumOfIntArray() throws IntArrayException {
     IntArray intArray = getRandomIntArray(50);
     int correctSum = Arrays.stream(intArray.getIntArray()).sum();
-    int sum = mathOperationsService.sum(intArray);
+    int sum = mathOperationsService.sum(intArray.getIntArray());
     assertEquals(correctSum, sum);
   }
 
@@ -75,7 +75,7 @@ public class IntArrayTest {
 
   private IntArray getRandomIntArray(int size) throws IntArrayException {
     Random random = new Random();
-    IntArray randomArray = new IntArray(IntArray.DEFAULT_NAME, size);
+    IntArray randomArray = new IntArray(size);
     for (int i = 0; i < size; i++) {
       randomArray.setElement(i, random.nextInt());
     }
