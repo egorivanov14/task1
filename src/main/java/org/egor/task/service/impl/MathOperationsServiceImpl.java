@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class MathOperationsServiceImpl implements MathOperationsService {
   private static final Logger logger = LoggerFactory.getLogger(MathOperationsServiceImpl.class);
-  private static final CustomValidatorImpl validator = new CustomValidatorImpl();
+  private final CustomValidatorImpl validator = new CustomValidatorImpl();
 
   @Override
   public int min(int[] array) throws IntArrayException {

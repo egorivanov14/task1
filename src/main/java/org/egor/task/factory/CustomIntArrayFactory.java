@@ -4,11 +4,11 @@ import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
 
 public interface CustomIntArrayFactory {
-  IntArray createIntArrayBySize(int size);
+  IntArray createIntArrayBySizeAndName(String name , int size);
 
   IntArray createEmptyIntArray();
 
-  IntArray createIntArray(int[] array) throws IntArrayException;
+  IntArray createIntArray(String name ,int[] array) throws IntArrayException;
 
-  IntArray createRandomIntArray(int size) throws IntArrayException;
+  IntArray createRandomIntArray(String name ,int size) throws IntArrayException;
 }

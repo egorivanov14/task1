@@ -1,53 +1,41 @@
 package org.egor.task.warehouse;
 
-import org.egor.task.entity.IntArray;
-import org.egor.task.exception.IntArrayException;
-import org.egor.task.observer.Observer;
-import org.egor.task.repository.impl.IntArrayRepositoryImpl;
-import org.egor.task.service.MathOperationsService;
-import org.egor.task.service.impl.MathOperationsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class IntArrayWarehouse implements Observer {
+public class IntArrayWarehouse {
+  private static final Logger logger = LoggerFactory.getLogger(IntArrayWarehouse.class);
   private static IntArrayWarehouse intArrayWarehouse;
-  private Map<String, IntArrayStats> arraysStatsMap;
-  private final MathOperationsService mathService = new MathOperationsServiceImpl();
+  private final Map<String, IntArrayStats> arraysStatsMap;
 
   private IntArrayWarehouse() {
+    logger.info("Creating new IntArrayWarehouse.");
     this.arraysStatsMap = new HashMap<>();
-    IntArrayRepositoryImpl repository = IntArrayRepositoryImpl.getIntArrayRepository();
-    repository.setObserver(intArrayWarehouse);
   }
 
   public static IntArrayWarehouse getIntArrayWarehouse() {
+    logger.info("getIntArrayWarehouse() is called.");
     if (intArrayWarehouse == null) {
       intArrayWarehouse = new IntArrayWarehouse();
     }
     return intArrayWarehouse;
   }
 
-  @Override
-  public void update(String id, int[] array) throws IntArrayException {
-    arraysStatsMap.replace(id, getStats(array));
+  public void changeIntArrayStats(String id, IntArrayStats newIntArrayStats){
+    logger.info("Changing IntArrayStats with id {} from IntArrayWarehouse.", id);
+    arraysStatsMap.replace(id, newIntArrayStats);
   }
 
-  @Override
-  public void add(IntArray array) throws IntArrayException {
-    arraysStatsMap.put(array.getId(), getStats(array.getIntArray()));
+  public void putIntArrayStats(String id, IntArrayStats intArrayStats) {
+    logger.info("Putting IntArrayStats with id {} into IntArrayWarehouse.", id);
+    arraysStatsMap.put(id, intArrayStats);
   }
 
-  @Override
-  public void delete(String id) {
+  public void removeIntArrayStats(String id) {
+    logger.info("Removing IntArrayStats with id {} from IntArrayWarehouse.", id);
     arraysStatsMap.remove(id);
-  }
-
-  private IntArrayStats getStats(int[] array) throws IntArrayException {
-    IntArrayStats arrayStats = new IntArrayStats();
-    arrayStats.setMin(mathService.min(array));
-    arrayStats.setMax(mathService.max(array));
-    arrayStats.getAverage((double) mathService.sum(array) / array.length);
-    return arrayStats;
   }
 }

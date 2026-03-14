@@ -1,19 +1,22 @@
 package org.egor.task.warehouse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class IntArrayStats {
+  private static final Logger logger = LoggerFactory.getLogger(IntArrayStats.class);
+
   private int min;
   private int max;
-  private double average;
   private int sum;
+  private double average;
 
-  IntArrayStats(int min, int max, double average, int sum) {
+  public IntArrayStats(int min, int max, int sum, double average) {
+    logger.info("Creating new IntArrayStats.");
     this.min = min;
     this.max = max;
-    this.average = average;
     this.sum = sum;
-  }
-
-  IntArrayStats() {
+    this.average = average;
   }
 
   public int getMin() {
@@ -32,7 +35,7 @@ public class IntArrayStats {
     this.max = max;
   }
 
-  public double getAverage(double v) {
+  public double getAverage() {
     return average;
   }
 

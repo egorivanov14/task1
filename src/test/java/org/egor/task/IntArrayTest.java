@@ -2,6 +2,7 @@ package org.egor.task;
 
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
+import org.egor.task.factory.IntArrayParameters;
 import org.egor.task.parser.CustomIntArrayParser;
 import org.egor.task.parser.impl.CustomIntArrayParserImpl;
 import org.egor.task.service.MathOperationsService;
@@ -14,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 import static org.egor.task.validator.impl.CustomValidatorImpl.CORRECT_NUMBER;
@@ -25,6 +25,7 @@ public class IntArrayTest {
   private final SortService sortService = new SortServiceImpl();
   private final MathOperationsService mathOperationsService = new MathOperationsServiceImpl();
   private final CustomValidator validator = new CustomValidatorImpl();
+  private final IntArray arrayToTest = new IntArray(IntArrayParameters.DEFAULT_NAME, new int[]{12,34,1,32,12,245,125,43,123,12,252,342,35,64});
 
   @Test
   void shouldParseLineToIntArray() throws IOException, IntArrayException {
@@ -36,7 +37,7 @@ public class IntArrayTest {
 
   @Test
   void shouldCountSumOfIntArray() throws IntArrayException {
-    IntArray intArray = getRandomIntArray(50);
+    IntArray intArray = arrayToTest;
     int correctSum = Arrays.stream(intArray.getIntArray()).sum();
     int sum = mathOperationsService.sum(intArray.getIntArray());
     assertEquals(correctSum, sum);
@@ -44,7 +45,7 @@ public class IntArrayTest {
 
   @Test
   void shouldSortIntArrayByQuickSort() throws IntArrayException {
-    IntArray array = getRandomIntArray(50);
+    IntArray array = arrayToTest;
     int[] correctSortArray = array.getIntArray();
     Arrays.sort(correctSortArray);
     array = sortService.quickSort(array);
@@ -53,7 +54,7 @@ public class IntArrayTest {
 
   @Test
   void shouldSortIntArrayByBubbleSort() throws IntArrayException {
-    IntArray array = getRandomIntArray(50);
+    IntArray array = arrayToTest;
     int[] correctSortArray = array.getIntArray();
     Arrays.sort(correctSortArray);
     array = sortService.bubbleSort(array);
@@ -71,14 +72,5 @@ public class IntArrayTest {
   void shouldAcceptLineOfInts() {
     String lineOfInts = "1,2,3,4,5,6:7;8.9-0";
     assertTrue(validator.isLineOfIntsValid(lineOfInts));
-  }
-
-  private IntArray getRandomIntArray(int size) throws IntArrayException {
-    Random random = new Random();
-    IntArray randomArray = new IntArray(size);
-    for (int i = 0; i < size; i++) {
-      randomArray.setElement(i, random.nextInt());
-    }
-    return randomArray;
   }
 }

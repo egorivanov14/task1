@@ -1,9 +1,9 @@
 package org.egor.task.writer.impl;
 
 import org.egor.task.exception.IntArrayException;
+import org.egor.task.writer.CustomFileWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.egor.task.writer.CustomFileWriter;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,29 +1,34 @@
 package org.egor.task.entity;
 
 import org.egor.task.exception.IntArrayException;
+import org.egor.task.factory.IntArrayParameters;
+import org.egor.task.observer.Observer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.List;
 import java.util.UUID;
 
 public class IntArray {
-
   private static final Logger logger = LoggerFactory.getLogger(IntArray.class);
-  public final static Random random = new Random();
+  private final List<Observer> observers = new ArrayList<>();
 
   private final String id;
+  private final String name;
   private final int[] intArray;
 
-  public IntArray(int size) {
+  public IntArray(String name, int size) {
     this.id = UUID.randomUUID().toString();
+    this.name = name;
     this.intArray = new int[size];
     logger.info("IntArray created.");
   }
 
-  public IntArray(int[] array) {
+  public IntArray(String name, int[] array) {
     this.id = UUID.randomUUID().toString();
+    this.name = name;
     this.intArray = new int[array.length];
     System.arraycopy(array, 0, this.intArray, 0, array.length);
     logger.info("IntArray created and copied.");
@@ -31,7 +36,12 @@ public class IntArray {
 
   public IntArray() {
     this.id = UUID.randomUUID().toString();
+    this.name = IntArrayParameters.DEFAULT_NAME;
     this.intArray = new int[0];
+  }
+
+  public void addObserver(Observer observer) {
+    observers.add(observer);
   }
 
   public String getId() {
@@ -39,23 +49,31 @@ public class IntArray {
   }
 
   public int[] getIntArray() {
-    int[] arrayCopy = new int[this.getLength()];
-    System.arraycopy(this.intArray, 0, arrayCopy, 0, this.getLength());
-    return arrayCopy;
+    return intArray.clone();
   }
 
   public int getElement(int index) throws IntArrayException {
-    if (index >= this.intArray.length || index < 0) {
+    if (index < this.intArray.length && index >= 0) {
+      return this.intArray[index];
+    } else {
       logger.error("Index {} in getElement() is out of intArray", index);
       throw new IntArrayException("Index in getElement() is out of array.");
-    } else {
-      return this.intArray[index];
     }
   }
 
   public void setElement(int index, int value) throws IntArrayException {
-    if (index > 0 && index < this.getLength()) {
+    logger.info("Setting element {} with index {}", value, index);
+    if (index >= 0 && index < this.getLength()) {
       this.intArray[index] = value;
+      for (Observer observer : observers) {
+        try {
+          observer.update(this.getId(), this.getIntArray());
+        }
+        catch (Exception e){
+          //добавить ошибку -------------------------------------------------------------------------
+          logger.error("Observer failed to update data.");
+        }
+      }
     } else {
       logger.error("Invalid index {} in setElement(). Index is out of array or less then 0.", index);
       throw new IntArrayException("Invalid index.");
@@ -99,5 +117,9 @@ public class IntArray {
   @Override
   public String toString() {
     return Arrays.toString(this.intArray);
+  }
+
+  public String getName() {
+    return name;
   }
 }

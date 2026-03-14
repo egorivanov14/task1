@@ -13,10 +13,10 @@ import static org.egor.task.validator.impl.CustomValidatorImpl.CORRECT_NUMBER;
 
 public class CustomIntArrayParserImpl implements CustomIntArrayParser {
   private static final Logger logger = LoggerFactory.getLogger(CustomIntArrayParserImpl.class);
-  private static final CustomFileWriterImpl fileWriter = new CustomFileWriterImpl();
+  private final CustomFileWriterImpl fileWriter = new CustomFileWriterImpl();
+  private final CustomValidatorImpl validator = new CustomValidatorImpl();
   private static final String SPACE_SYMBOL = " ";
   private static final String VALID_SYMBOLS = "[.,!?;:()]";
-  private static final CustomValidatorImpl validator = new CustomValidatorImpl();
 
   @Override
   public int[] parseToIntArray(String lineOfInts) throws IntArrayException {

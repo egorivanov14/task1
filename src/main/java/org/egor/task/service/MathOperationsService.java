@@ -1,6 +1,5 @@
 package org.egor.task.service;
 
-import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
 
 public interface MathOperationsService {
