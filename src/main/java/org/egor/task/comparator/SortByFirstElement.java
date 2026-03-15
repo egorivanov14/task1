@@ -1,12 +1,15 @@
 package org.egor.task.comparator;
 
-import org.egor.task.entity.IntArray;
-
 import java.util.Comparator;
 
-public class SortByFirstElement implements Comparator<IntArray> {
+public class SortByFirstElement implements Comparator<Integer> {
   @Override
-  public int compare(IntArray intArray1, IntArray intArray2) {
+  public int compare(Integer element1, Integer element2) {
+    if (element1 > element2) {
+      return 1;
+    } else if (element1 < element2) {
+      return -1;
+    }
     return 0;
   }
 }
