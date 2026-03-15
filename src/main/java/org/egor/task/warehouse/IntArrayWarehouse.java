@@ -38,4 +38,12 @@ public class IntArrayWarehouse {
     logger.info("Removing IntArrayStats with id {} from IntArrayWarehouse.", id);
     arraysStatsMap.remove(id);
   }
+
+  public IntArrayStats getStatsById(String id){
+    return arraysStatsMap.get(id);
+  }
+
+  public Map<String, IntArrayStats> getAllStats(){
+    return new HashMap<>(arraysStatsMap);
+  }
 }

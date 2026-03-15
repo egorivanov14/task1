@@ -3,11 +3,16 @@ package org.egor.task.repository;
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
 import org.egor.task.observer.Observer;
+import org.egor.task.specification.SearchType;
+import org.egor.task.specification.impl.*;
+import org.egor.task.warehouse.IntArrayStats;
+import org.egor.task.warehouse.IntArrayWarehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class IntArrayRepository {
   private static final Logger logger = LoggerFactory.getLogger(IntArrayRepository.class);
@@ -44,21 +49,114 @@ public class IntArrayRepository {
         intArray.addObserver(observer);
         observer.add(intArray);
       }
-    }
-    else {
+    } else {
       throw new IntArrayException("Int array is null.");
     }
   }
 
-  public void delete(String id) {
+  public void remove(String id) {
     logger.info("Deleting intArray from repository with id {}", id);
     for (IntArray intArray : intArrays) {
       if (intArray.getId().equals(id)) {
         intArrays.remove(intArray);
         for (Observer observer : observers) {
-          observer.delete(id);
+          observer.remove(id);
         }
       }
     }
+  }
+
+  public List<IntArray> getById(String id) throws IntArrayException {
+    List<IntArray> intArrayList = new ArrayList<>();
+    IdSpecification specification = new IdSpecification(id);
+    for (IntArray element : intArrays) {
+      if (specification.isSatisfiedBy(element)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> findByName(String name) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    NameSpecification specification = new NameSpecification(name);
+    for (IntArray element : intArrays) {
+      if (specification.isSatisfiedBy(element)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> getAllBySum(int sum, SearchType searchType) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    IntArrayWarehouse warehouse = IntArrayWarehouse.getIntArrayWarehouse();
+    SumSpecification specification = new SumSpecification(sum, searchType);
+
+    for (IntArray element : intArrays) {
+      String elementId = element.getId();
+      IntArrayStats candidate = warehouse.getStatsById(elementId);
+      if (specification.isSatisfiedBy(candidate)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> getAllByAverage(int average, SearchType searchType) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    IntArrayWarehouse warehouse = IntArrayWarehouse.getIntArrayWarehouse();
+    AverageSpecification specification = new AverageSpecification(average, searchType);
+
+    for (IntArray element : intArrays) {
+      String elementId = element.getId();
+      IntArrayStats candidate = warehouse.getStatsById(elementId);
+      if (specification.isSatisfiedBy(candidate)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> getAllByMax(int max, SearchType searchType) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    IntArrayWarehouse warehouse = IntArrayWarehouse.getIntArrayWarehouse();
+    Map<String, IntArrayStats> intArrayStatsMap = warehouse.getAllStats();
+    MaxSpecification specification = new MaxSpecification(max, searchType);
+
+    for (IntArray element : intArrays) {
+      String elementId = element.getId();
+      IntArrayStats candidate = warehouse.getStatsById(elementId);
+      if (specification.isSatisfiedBy(candidate)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> getAllByMin(int min, SearchType searchType) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    IntArrayWarehouse warehouse = IntArrayWarehouse.getIntArrayWarehouse();
+    MinSpecification specification = new MinSpecification(min, searchType);
+
+    for (IntArray element : intArrays) {
+      String elementId = element.getId();
+      IntArrayStats candidate = warehouse.getStatsById(elementId);
+      if (specification.isSatisfiedBy(candidate)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
+  }
+
+  public List<IntArray> getAllByQuantity(int quantity, SearchType searchType) {
+    List<IntArray> intArrayList = new ArrayList<>();
+    LengthSpecification specification = new LengthSpecification(quantity, searchType);
+    for (IntArray element : intArrays) {
+      if (specification.isSatisfiedBy(element)) {
+        intArrayList.add(element);
+      }
+    }
+    return intArrayList;
   }
 }

@@ -1,11 +1,11 @@
 package org.egor.task.service;
 
-import org.egor.task.exception.IntArrayException;
+import java.util.OptionalInt;
 
 public interface MathOperationsService {
-  int min(int[] array) throws IntArrayException;
+  OptionalInt min(int[] array);
 
-  int max(int[] array) throws IntArrayException;
+  OptionalInt max(int[] array);
 
-  int sum(int[] array) throws IntArrayException;
+  OptionalInt sum(int[] array);
 }

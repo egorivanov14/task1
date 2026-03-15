@@ -6,7 +6,7 @@ import org.egor.task.specification.Specification;
 public class IdSpecification implements Specification<IntArray> {
   private final String id;
 
-  public IdSpecification(String id){
+  public IdSpecification(String id) {
     this.id = id;
   }
 

@@ -5,11 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
 import org.egor.task.service.SortService;
-import org.egor.task.validator.impl.CustomValidatorImpl;
 
 public class SortServiceImpl implements SortService {
   private static final Logger logger = LoggerFactory.getLogger(SortServiceImpl.class);
-  private static final CustomValidatorImpl validator = new CustomValidatorImpl();
 
   @Override
   public IntArray quickSort(IntArray array) throws IntArrayException {

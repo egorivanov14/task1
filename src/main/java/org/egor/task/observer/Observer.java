@@ -8,5 +8,5 @@ public interface Observer {
 
   void add(IntArray array) throws IntArrayException;
 
-  void delete(String id);
+  void remove(String id);
 }

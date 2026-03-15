@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.regex.Pattern;
 
 import static org.egor.task.validator.impl.CustomValidatorImpl.CORRECT_NUMBER;
@@ -38,9 +40,9 @@ public class IntArrayTest {
   @Test
   void shouldCountSumOfIntArray() throws IntArrayException {
     IntArray intArray = arrayToTest;
-    int correctSum = Arrays.stream(intArray.getIntArray()).sum();
-    int sum = mathOperationsService.sum(intArray.getIntArray());
-    assertEquals(correctSum, sum);
+    int excepted = Arrays.stream(intArray.getIntArray()).sum();
+    OptionalInt actual = mathOperationsService.sum(intArray.getIntArray());
+    assertEquals(excepted, actual.getAsInt());
   }
 
   @Test

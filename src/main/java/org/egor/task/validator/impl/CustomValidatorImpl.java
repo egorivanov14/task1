@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class CustomValidatorImpl implements CustomValidator {
   private static final Logger logger = LoggerFactory.getLogger(CustomValidatorImpl.class);
   private static final String SYMBOLS = "[\\p{L}\\p{M}]+";
-  public static final String CORRECT_NUMBER = "^[+-]?[1-9]\\d*$";
+  public static final String CORRECT_NUMBER = "^[+-]?(0|[1-9]\\d*)$";
 
   @Override
   public boolean isElementValid(String element, Pattern pattern) {

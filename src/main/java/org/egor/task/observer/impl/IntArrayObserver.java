@@ -10,6 +10,8 @@ import org.egor.task.warehouse.IntArrayWarehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.OptionalInt;
+
 public class IntArrayObserver implements Observer {
   private static final Logger logger = LoggerFactory.getLogger(IntArrayObserver.class);
   private final IntArrayWarehouse intArrayWarehouse = IntArrayWarehouse.getIntArrayWarehouse();
@@ -30,18 +32,22 @@ public class IntArrayObserver implements Observer {
   }
 
   @Override
-  public void delete(String id) {
+  public void remove(String id) {
     logger.info("IntArrayObserver is deleting array with id {}", id);
     intArrayWarehouse.removeIntArrayStats(id);
   }
 
   private IntArrayStats getStats(int[] array) throws IntArrayException {
     logger.info("Creating IntArrayStats.");
-    int min = mathService.min(array);
-    int max = mathService.max(array);
-    int sum = mathService.sum(array);
-    double average = (double) sum / array.length;
-
-    return new IntArrayStats(min, max, sum, average);
+    OptionalInt min = mathService.min(array);
+    OptionalInt max = mathService.max(array);
+    OptionalInt sum = mathService.sum(array);
+    if (min.isPresent() && max.isPresent() && sum.isPresent()) {
+      double average = (double) sum.getAsInt() / array.length;
+      return new IntArrayStats(min.getAsInt(), max.getAsInt(), sum.getAsInt(), average);
+    } else {
+      logger.error("Failed to calculate statistic of array.");
+      throw new IntArrayException("Failed to get statistic of array.");
+    }
   }
 }
