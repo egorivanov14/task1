@@ -1,7 +1,7 @@
 package org.egor.task.specification;
 
 public enum SearchType {
-  GRATER,
+  GREATER ,
   LESS,
   EQUALS
 }

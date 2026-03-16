@@ -19,7 +19,7 @@ public class SumSpecification implements Specification<IntArrayStats> {
     return switch (searchType) {
       case LESS -> sum < this.sum;
       case EQUALS -> sum == this.sum;
-      case GRATER -> sum > this.sum;
+      case GREATER  -> sum > this.sum;
     };
   }
 }

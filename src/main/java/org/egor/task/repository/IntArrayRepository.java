@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class IntArrayRepository {
   private static final Logger logger = LoggerFactory.getLogger(IntArrayRepository.class);
@@ -56,13 +55,9 @@ public class IntArrayRepository {
 
   public void remove(String id) {
     logger.info("Deleting intArray from repository with id {}", id);
-    for (IntArray intArray : intArrays) {
-      if (intArray.getId().equals(id)) {
-        intArrays.remove(intArray);
-        for (Observer observer : observers) {
-          observer.remove(id);
-        }
-      }
+    intArrays.removeIf(intArray -> intArray.getId().equals(id));
+    for (Observer observer : observers) {
+      observer.remove(id);
     }
   }
 
@@ -121,7 +116,6 @@ public class IntArrayRepository {
   public List<IntArray> getAllByMax(int max, SearchType searchType) {
     List<IntArray> intArrayList = new ArrayList<>();
     IntArrayWarehouse warehouse = IntArrayWarehouse.getIntArrayWarehouse();
-    Map<String, IntArrayStats> intArrayStatsMap = warehouse.getAllStats();
     MaxSpecification specification = new MaxSpecification(max, searchType);
 
     for (IntArray element : intArrays) {
@@ -149,9 +143,9 @@ public class IntArrayRepository {
     return intArrayList;
   }
 
-  public List<IntArray> getAllByQuantity(int quantity, SearchType searchType) {
+  public List<IntArray> getAllByLength(int length, SearchType searchType) {
     List<IntArray> intArrayList = new ArrayList<>();
-    LengthSpecification specification = new LengthSpecification(quantity, searchType);
+    LengthSpecification specification = new LengthSpecification(length, searchType);
     for (IntArray element : intArrays) {
       if (specification.isSatisfiedBy(element)) {
         intArrayList.add(element);

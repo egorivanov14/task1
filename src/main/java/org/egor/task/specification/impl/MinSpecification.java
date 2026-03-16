@@ -17,7 +17,7 @@ public class MinSpecification implements Specification<IntArrayStats> {
   public boolean isSatisfiedBy(IntArrayStats candidate) {
     int candidateMin = candidate.getMin();
     return switch (searchType) {
-      case GRATER -> candidateMin > min;
+      case GREATER  -> candidateMin > min;
       case LESS -> candidateMin < min;
       case EQUALS -> candidateMin == min;
     };

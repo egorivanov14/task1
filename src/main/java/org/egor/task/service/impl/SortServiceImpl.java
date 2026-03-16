@@ -17,14 +17,8 @@ public class SortServiceImpl implements SortService {
       logger.info("IntArray is sorted by quick sort.");
       return sortedArray;
     } else {
-      assert array != null;
-      if (array.getLength() < 2 && array.getLength() > 0) {
-        logger.info("End of quick sort. You do not need sorting. Array is too short.");
-        return array;
-      } else {
-        logger.error("Failed to use quick sort. Array is null.");
-        throw new IntArrayException("Array is null.");
-      }
+      logger.error("Failed to use quick sort. Array is null.");
+      throw new IntArrayException("Array is null.");
     }
   }
 
@@ -66,7 +60,6 @@ public class SortServiceImpl implements SortService {
       quickSortImpl(array, low, i - 1);
       quickSortImpl(array, i + 1, high);
     }
-
     return array;
   }
 

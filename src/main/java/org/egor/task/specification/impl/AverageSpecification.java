@@ -17,7 +17,7 @@ public class AverageSpecification implements Specification<IntArrayStats> {
   public boolean isSatisfiedBy(IntArrayStats candidate) {
     double average = candidate.getAverage();
     return switch (searchType) {
-      case GRATER -> average > this.average;
+      case GREATER  -> average > this.average;
       case LESS -> average < this.average;
       case EQUALS -> average == this.average;
     };

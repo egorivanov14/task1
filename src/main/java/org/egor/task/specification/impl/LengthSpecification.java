@@ -17,7 +17,7 @@ public class LengthSpecification implements Specification<IntArray> {
   public boolean isSatisfiedBy(IntArray candidate) {
     int candidateLength = candidate.getLength();
     return switch (searchType) {
-      case GRATER -> candidateLength > length;
+      case GREATER  -> candidateLength > length;
       case LESS -> candidateLength < length;
       case EQUALS -> candidateLength == length;
     };

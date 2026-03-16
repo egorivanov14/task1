@@ -17,7 +17,7 @@ public class MaxSpecification implements Specification<IntArrayStats> {
   public boolean isSatisfiedBy(IntArrayStats candidate) {
     int candidateMax = candidate.getMax();
     return switch (searchType) {
-      case GRATER -> candidateMax > max;
+      case GREATER  -> candidateMax > max;
       case LESS -> candidateMax < max;
       case EQUALS -> candidateMax == max;
     };

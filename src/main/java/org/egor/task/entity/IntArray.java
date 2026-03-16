@@ -66,13 +66,7 @@ public class IntArray {
     if (index >= 0 && index < this.getLength()) {
       this.intArray[index] = value;
       for (Observer observer : observers) {
-        try {
-          observer.update(this.getId(), this.getIntArray());
-        }
-        catch (Exception e){
-          //добавить ошибку -------------------------------------------------------------------------
-          logger.error("Observer failed to update data.");
-        }
+        observer.update(getId(), getIntArray());
       }
     } else {
       logger.error("Invalid index {} in setElement(). Index is out of array or less then 0.", index);
@@ -91,7 +85,6 @@ public class IntArray {
     }
 
     if (o == null) {
-      logger.error("Empty object in equals method.");
       return false;
     }
 
