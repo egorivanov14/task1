@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 public class IntArrayRepository {
   private static final Logger logger = LoggerFactory.getLogger(IntArrayRepository.class);
