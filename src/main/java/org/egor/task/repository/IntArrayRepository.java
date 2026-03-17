@@ -2,6 +2,7 @@ package org.egor.task.repository;
 
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayRepositoryException;
+import org.egor.task.exception.ObserverException;
 import org.egor.task.observer.Observer;
 import org.egor.task.specification.SearchType;
 import org.egor.task.specification.impl.*;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public class IntArrayRepository {
   private static final Logger logger = LoggerFactory.getLogger(IntArrayRepository.class);
@@ -48,7 +51,7 @@ public class IntArrayRepository {
         intArray.addObserver(observer);
         try {
           observer.add(intArray);
-        } catch (org.egor.task.exception.ObserverException e) {
+        } catch (ObserverException e) {
           throw new RuntimeException(e);
         }
       }
@@ -65,15 +68,14 @@ public class IntArrayRepository {
     }
   }
 
-  public List<IntArray> getById(String id) {
-    List<IntArray> intArrayList = new ArrayList<>();
+  public Optional<IntArray> getById(String id) {
     IdSpecification specification = new IdSpecification(id);
     for (IntArray element : intArrays) {
       if (specification.isSatisfiedBy(element)) {
-        intArrayList.add(element);
+        return Optional.of(element);
       }
     }
-    return intArrayList;
+    return Optional.empty();
   }
 
   public List<IntArray> findByName(String name) {
