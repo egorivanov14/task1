@@ -1,7 +1,7 @@
 package org.egor.task.service;
 
 import org.egor.task.entity.IntArray;
-import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.IntArrayMathException;
 import org.egor.task.service.impl.SortServiceImpl;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ public class SortServiceTest {
   private final SortService sortService = new SortServiceImpl();
 
   @Test
-  void shouldSortIntArrayByQuickSort() throws IntArrayException {
+  void shouldSortIntArrayByQuickSort() throws IntArrayMathException {
     IntArray array = ARRAY_TO_TEST;
     int[] correctSortArray = array.getIntArray();
     Arrays.sort(correctSortArray);
@@ -23,7 +23,7 @@ public class SortServiceTest {
   }
 
   @Test
-  void shouldSortIntArrayByBubbleSort() throws IntArrayException {
+  void shouldSortIntArrayByBubbleSort() throws IntArrayMathException {
     IntArray array = ARRAY_TO_TEST;
     int[] correctSortArray = array.getIntArray();
     Arrays.sort(correctSortArray);

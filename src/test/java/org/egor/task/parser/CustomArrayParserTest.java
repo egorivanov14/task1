@@ -1,6 +1,7 @@
 package org.egor.task.parser;
 
 import org.egor.task.TestVariable;
+import org.egor.task.exception.CustomIntArrayParserException;
 import org.egor.task.exception.IntArrayException;
 import org.egor.task.parser.impl.CustomIntArrayParserImpl;
 import org.junit.jupiter.api.Test;
