@@ -1,7 +1,7 @@
 package org.egor.task.repository;
 
 import org.egor.task.entity.IntArray;
-import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.IntArrayRepositoryException;
 import org.egor.task.observer.Observer;
 import org.egor.task.specification.SearchType;
 import org.egor.task.specification.impl.*;
@@ -40,16 +40,20 @@ public class IntArrayRepository {
     }
   }
 
-  public void save(IntArray intArray) throws IntArrayException {
+  public void save(IntArray intArray) throws IntArrayRepositoryException {
     if (intArray != null) {
       logger.info("Saving intArray to repository with id {}", intArray.getId());
       this.intArrays.add(intArray);
       for (Observer observer : observers) {
         intArray.addObserver(observer);
-        observer.add(intArray);
+        try {
+          observer.add(intArray);
+        } catch (org.egor.task.exception.ObserverException e) {
+          throw new RuntimeException(e);
+        }
       }
     } else {
-      throw new IntArrayException("Int array is null.");
+      throw new IntArrayRepositoryException("Failed to save IntArray to repository. Int array is null.");
     }
   }
 
@@ -61,7 +65,7 @@ public class IntArrayRepository {
     }
   }
 
-  public List<IntArray> getById(String id) throws IntArrayException {
+  public List<IntArray> getById(String id) {
     List<IntArray> intArrayList = new ArrayList<>();
     IdSpecification specification = new IdSpecification(id);
     for (IntArray element : intArrays) {

@@ -66,7 +66,11 @@ public class IntArray {
     if (index >= 0 && index < this.getLength()) {
       this.intArray[index] = value;
       for (Observer observer : observers) {
-        observer.update(getId(), getIntArray());
+        try {
+          observer.update(getId(), getIntArray());
+        } catch (org.egor.task.exception.ObserverException e) {
+          throw new RuntimeException(e);
+        }
       }
     } else {
       logger.error("Invalid index {} in setElement(). Index is out of array or less then 0.", index);

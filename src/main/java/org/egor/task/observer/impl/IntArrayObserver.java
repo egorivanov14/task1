@@ -1,7 +1,8 @@
 package org.egor.task.observer.impl;
 
 import org.egor.task.entity.IntArray;
-import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.IntArrayMathException;
+import org.egor.task.exception.ObserverException;
 import org.egor.task.observer.Observer;
 import org.egor.task.service.MathOperationsService;
 import org.egor.task.service.impl.MathOperationsServiceImpl;
@@ -18,17 +19,25 @@ public class IntArrayObserver implements Observer {
   private final MathOperationsService mathService = new MathOperationsServiceImpl();
 
   @Override
-  public void update(String id, int[] array) throws IntArrayException {
-    logger.info("IntArrayObserver is updating array with id {}", id);
-    IntArrayStats newIntArrayStats = getStats(array);
-    intArrayWarehouse.changeIntArrayStats(id, newIntArrayStats);
+  public void update(String id, int[] array) throws ObserverException {
+    try{
+      logger.info("IntArrayObserver is updating array with id {}", id);
+      IntArrayStats newIntArrayStats = getStats(array);
+      intArrayWarehouse.changeIntArrayStats(id, newIntArrayStats);
+    }catch(IntArrayMathException e){
+      throw new ObserverException("failed to update IntArrayWarehouse.", e);
+    }
   }
 
   @Override
-  public void add(IntArray array) throws IntArrayException {
-    logger.info("IntArrayObserver is adding array.");
-    IntArrayStats intArrayStats = getStats(array.getIntArray());
-    intArrayWarehouse.putIntArrayStats(array.getId(), intArrayStats);
+  public void add(IntArray array) throws ObserverException {
+    try{
+      logger.info("IntArrayObserver is adding array.");
+      IntArrayStats intArrayStats = getStats(array.getIntArray());
+      intArrayWarehouse.putIntArrayStats(array.getId(), intArrayStats);
+    }catch (IntArrayMathException e){
+      throw new ObserverException("Failed to add IntArrayStats to warehouse.", e);
+    }
   }
 
   @Override
@@ -37,7 +46,7 @@ public class IntArrayObserver implements Observer {
     intArrayWarehouse.removeIntArrayStats(id);
   }
 
-  private IntArrayStats getStats(int[] array) throws IntArrayException {
+  private IntArrayStats getStats(int[] array) throws IntArrayMathException {
     logger.info("Creating IntArrayStats.");
     OptionalInt min = mathService.min(array);
     OptionalInt max = mathService.max(array);
@@ -47,7 +56,7 @@ public class IntArrayObserver implements Observer {
       return new IntArrayStats(min.getAsInt(), max.getAsInt(), sum.getAsInt(), average);
     } else {
       logger.error("Failed to calculate statistic of array.");
-      throw new IntArrayException("Failed to get statistic of array.");
+      throw new IntArrayMathException("Failed to get statistic of array.");
     }
   }
 }

@@ -2,6 +2,7 @@ package org.egor.task.factory.impl;
 
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.IntArrayFactoryException;
 import org.egor.task.factory.CustomIntArrayFactory;
 import org.egor.task.factory.IntArrayParameters;
 import org.egor.task.validator.impl.CustomValidatorImpl;
@@ -25,23 +26,26 @@ public class CustomIntArrayFactoryImpl implements CustomIntArrayFactory {
   }
 
   @Override
-  public IntArray createIntArray(String name, int[] array) throws IntArrayException {
-    if (array != null && array.length != 0) {
+  public IntArray createIntArray(String name, int[] array) throws IntArrayFactoryException {
+    if (array != null && array.length > 0) {
       logger.info("Creating IntArray.");
       return new IntArray(name, array);
     } else {
       logger.error("Failed to create IntArray. Input array is null or  empty.");
-      throw new IntArrayException("Input array is null or empty.");
+      throw new IntArrayFactoryException("Input array is null or empty.");
     }
   }
 
   @Override
-  public IntArray createRandomIntArray(String name, int size) throws IntArrayException {
+  public IntArray createRandomIntArray(String name, int size) throws IntArrayFactoryException {
     logger.info("Creating RANDOM IntArray.");
     IntArray newArray = new IntArray(name, size);
-
-    for (int i = 0; i < size; i++) {
-      newArray.setElement(i, IntArrayParameters.RANDOM.nextInt());
+    try {
+      for (int i = 0; i < size; i++) {
+        newArray.setElement(i, IntArrayParameters.RANDOM.nextInt());
+      }
+    } catch (IntArrayException e) {
+      throw new IntArrayFactoryException("Failed to create random IntArray.", e);
     }
     return newArray;
   }

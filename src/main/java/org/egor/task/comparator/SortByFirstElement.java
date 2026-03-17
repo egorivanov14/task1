@@ -1,6 +1,7 @@
 package org.egor.task.comparator;
 
 import org.egor.task.entity.IntArray;
+import org.egor.task.exception.ComparatorException;
 import org.egor.task.exception.IntArrayException;
 
 import java.util.Comparator;
@@ -29,16 +30,16 @@ public class SortByFirstElement implements Comparator<IntArray> {
       } else {
         return 0;
       }
-    } catch (IntArrayException e) {
+    } catch (ComparatorException e) {
       return 0;
     }
   }
 
-  private int getFirstElement(IntArray array) throws IntArrayException {
-    if (array.getLength() != 0) {
+  private int getFirstElement(IntArray array) throws ComparatorException {
+    try {
       return array.getElement(0);
-    } else {
-      throw new IntArrayException("Failed to get first element from empty array.");
+    } catch (IntArrayException e) {
+      throw new ComparatorException("Failed to get first element of array.", e);
     }
   }
 }

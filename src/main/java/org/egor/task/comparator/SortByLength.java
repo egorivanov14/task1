@@ -19,11 +19,12 @@ public class SortByLength implements Comparator<IntArray> {
 
     int length1 = intArray1.getLength();
     int length2 = intArray2.getLength();
-    if (length1 < length2) {
-      return -1;
-    } else if (length1 > length2) {
+    if (length1 > length2) {
       return 1;
+    } else if (length1 < length2) {
+      return -1;
+    } else {
+      return 0;
     }
-    return 0;
   }
 }

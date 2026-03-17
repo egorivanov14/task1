@@ -1,7 +1,7 @@
 package org.egor.task.writer;
 
-import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.CustomIntArrayWriterException;
 
 public interface CustomFileWriter {
-  void writeWrongValues(String value) throws IntArrayException;
+  void writeWrongValues(String value) throws CustomIntArrayWriterException;
 }

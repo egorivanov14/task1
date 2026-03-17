@@ -1,7 +1,6 @@
 package org.egor.task.exception;
 
 public class IntArrayException extends Exception {
-
   public IntArrayException() {
     super();
   }

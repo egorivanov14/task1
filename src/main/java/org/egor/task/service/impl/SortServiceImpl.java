@@ -1,16 +1,17 @@
 package org.egor.task.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.egor.task.entity.IntArray;
 import org.egor.task.exception.IntArrayException;
+import org.egor.task.exception.IntArrayMathException;
 import org.egor.task.service.SortService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SortServiceImpl implements SortService {
   private static final Logger logger = LoggerFactory.getLogger(SortServiceImpl.class);
 
   @Override
-  public IntArray quickSort(IntArray array) throws IntArrayException {
+  public IntArray quickSort(IntArray array) throws IntArrayMathException {
     logger.info("Start of quick sort.");
     if (array != null && array.getLength() != 0) {
       IntArray sortedArray = quickSortImpl(array, 0, array.getLength() - 1);
@@ -18,49 +19,57 @@ public class SortServiceImpl implements SortService {
       return sortedArray;
     } else {
       logger.error("Failed to use quick sort. Array is null.");
-      throw new IntArrayException("Array is null.");
+      throw new IntArrayMathException("Array is null or empty.");
     }
   }
 
   @Override
-  public IntArray bubbleSort(IntArray array) throws IntArrayException {
+  public IntArray bubbleSort(IntArray array) throws IntArrayMathException {
     if (array != null && array.getLength() != 0) {
-      logger.info("Start of bubble sort.");
-      int permutations = 0;
-      int length = array.getLength();
-      while (length > 1) {
-        for (int i = 1; i < length; i++) {
-          int first = array.getElement(i - 1);
-          int second = array.getElement(i);
-          if (first > second) {
-            int temp = first;
-            array.setElement(i - 1, second);
-            array.setElement(i, temp);
-            permutations++;
+      try {
+        logger.info("Start of bubble sort.");
+        int permutations = 0;
+        int length = array.getLength();
+        while (length > 1) {
+          for (int i = 1; i < length; i++) {
+            int first = array.getElement(i - 1);
+            int second = array.getElement(i);
+            if (first > second) {
+              int temp = first;
+              array.setElement(i - 1, second);
+              array.setElement(i, temp);
+              permutations++;
+            }
+          }
+          if (permutations == 0) {
+            logger.info("Successful sorting by bubble sort.");
+            return array;
+          } else {
+            length--;
           }
         }
-        if (permutations == 0) {
-          logger.info("Successful sorting by bubble sort.");
-          return array;
-        } else {
-          length--;
-        }
+        logger.info("Successful sorting by bubble sort.");
+        return array;
+      } catch (IntArrayException e) {
+        throw new IntArrayMathException("Failed to sort array by bubble sort.", e);
       }
-      logger.info("Successful sorting by bubble sort.");
-      return array;
     } else {
       logger.error("Failed to use bubble sort. Array is null or empty.");
-      throw new IntArrayException("Array is null or empty.");
+      throw new IntArrayMathException("Failed to sort array by bubble sort. Array is null or empty.");
     }
   }
 
-  private IntArray quickSortImpl(IntArray array, int low, int high) throws IntArrayException {
-    if (low < high) {
-      int i = partition(array, low, high);
-      quickSortImpl(array, low, i - 1);
-      quickSortImpl(array, i + 1, high);
+  private IntArray quickSortImpl(IntArray array, int low, int high) throws IntArrayMathException {
+    try {
+      if (low < high) {
+        int i = partition(array, low, high);
+        quickSortImpl(array, low, i - 1);
+        quickSortImpl(array, i + 1, high);
+      }
+      return array;
+    } catch (IntArrayException e) {
+      throw new IntArrayMathException("Failed to sort array by quick sort.", e);
     }
-    return array;
   }
 
   private int partition(IntArray array, int low, int high) throws IntArrayException {
