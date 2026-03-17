@@ -62,7 +62,6 @@ public class IntArray {
   }
 
   public void setElement(int index, int value) throws IntArrayException {
-    logger.info("Setting element {} with index {}", value, index);
     if (index >= 0 && index < this.getLength()) {
       this.intArray[index] = value;
       for (Observer observer : observers) {
