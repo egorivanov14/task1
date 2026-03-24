@@ -23,13 +23,7 @@ public class SortByFirstElement implements Comparator<IntArray> {
     try {
       int firstElement1 = getFirstElement(intArray1);
       int firstElement2 = getFirstElement(intArray2);
-      if (firstElement1 > firstElement2) {
-        return 1;
-      } else if (firstElement1 < firstElement2) {
-        return -1;
-      } else {
-        return 0;
-      }
+      return Integer.compare(firstElement1, firstElement2);
     } catch (ComparatorException e) {
       return 0;
     }

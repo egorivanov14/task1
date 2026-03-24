@@ -15,19 +15,19 @@ public class IntArray {
   private static final Logger logger = LoggerFactory.getLogger(IntArray.class);
   private final List<Observer> observers = new ArrayList<>();
 
-  private final String id;
+  private final UUID id;
   private final String name;
   private final int[] intArray;
 
   public IntArray(String name, int size) {
-    this.id = UUID.randomUUID().toString();
+    this.id = UUID.randomUUID();
     this.name = name;
     this.intArray = new int[size];
     logger.info("IntArray created.");
   }
 
   public IntArray(String name, int[] array) {
-    this.id = UUID.randomUUID().toString();
+    this.id = UUID.randomUUID();
     this.name = name;
     this.intArray = new int[array.length];
     System.arraycopy(array, 0, this.intArray, 0, array.length);
@@ -35,7 +35,7 @@ public class IntArray {
   }
 
   public IntArray() {
-    this.id = UUID.randomUUID().toString();
+    this.id = UUID.randomUUID();
     this.name = IntArrayParameters.DEFAULT_NAME;
     this.intArray = new int[0];
   }
@@ -45,7 +45,7 @@ public class IntArray {
   }
 
   public String getId() {
-    return id;
+    return id.toString();
   }
 
   public int[] getIntArray() {

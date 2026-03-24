@@ -14,7 +14,7 @@ public class CustomFileReaderImpl implements CustomFileReader {
   private static final Logger logger = LoggerFactory.getLogger(CustomFileReaderImpl.class);
 
   @Override
-  public List<String> readWithPath(Path path, String name) throws CustomIntArrayReaderException {
+  public List<String> readWithPath(Path path) throws CustomIntArrayReaderException {
     List<String> content;
     try {
       logger.info("Reading file {}.", path);
